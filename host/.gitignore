@@ -1,0 +1,26 @@
+**/.externalNativeBuild/
+ajcore*
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+*/build/
+baidusearch/build
+PushSDK/build
+/captures
+/freeline
+.idea
+*.iml
+gradle/wrapper/gradle-wrapper.properties
+/test
+Demo/build/
+/app/assets/skin
+infer-out
+ PushSDK/build
+
+build
+pingstart2/build/
+UIRouterTable/
+
