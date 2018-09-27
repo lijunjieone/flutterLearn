@@ -8,7 +8,7 @@ flutter_android_path=${flutter_app_path}/android/
 android_app_name=flutter_android
 android_app_path=${flutter_app_path}/host/android/${android_app_name}
 flutter_android_gradle_build=${flutter_app_path}/android/app/build.gradle
-
+flutter_aar_path=${flutter_app_path}/build/app/outputs/aar/app-release.aar
 
 #echo $flutter_app_path
 #echo $android_app_name
@@ -35,11 +35,33 @@ function build_aar() {
 #   echo ${flutter_android_path}
    cd ${flutter_android_path} && ./gradlew :app:asR
    modify_build_gradle_for_apk
+
+
 }
 
+function cp_aar_to_android_lib() {
+    if [ -e ${flutter_aar_path} ]; then
+       cp -pv ${flutter_aar_path} ${android_app_path}/app/libs/flutter_sdk.aar
+    else
+       echo  ${flutter_aar_path} is not exist
+    fi
+}
 
+function cp_icudtl_to_android_assets() {
+    assets_path=${android_app_path}/app/src/main/assets/flutter_shared
+
+    if [ -e ${assets_path} ]; then
+        echo "icudtl.dat is exists"
+    else
+        mkdir -pv ${assets_path}
+        cp -pv ${current_path}/icudtl.dat $assets_path
+    fi
+
+}
 function main() {
     build_aar
+    cp_aar_to_android_lib
+    cp_icudtl_to_android_assets
 }
 
 main
